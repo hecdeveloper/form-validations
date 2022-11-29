@@ -25,12 +25,14 @@ const Formulario = () => {
 
           return errores;
         }}
-        onSubmit={(valores) => {
+        onSubmit={(valores, {resetForm}) => {
+          resetForm();
           console.log(valores);
         }}
       >
-        {({ handleSubmit, errors, values, handleChange, handleBlur }) => (
+        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
           <form className="formulario" onSubmit={handleSubmit}>
+  
             <div>
               <label htmlFor="nombre">Nombre</label>
               <input
@@ -42,7 +44,8 @@ const Formulario = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.nombre && <div className="error">{errors.nombre}</div>}
+              
+              {touched.nombre && errors.nombre && <div className="error">{errors.nombre}</div>}
             </div>
             <div>
               <label htmlFor="nombre">Correo</label>
@@ -50,12 +53,12 @@ const Formulario = () => {
                 type="text"
                 id="correo"
                 name="correo"
-                placeholder="correo.@correo.com"
+                placeholder="correo@correo.com"
                 value={values.correo}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-               {errors.correo && <div className="error">{errors.correo}</div>}
+               {touched.correo && errors.correo && <div className="error">{errors.correo}</div>}
             </div>
             <button type="submit">Enviar</button>
           </form>
