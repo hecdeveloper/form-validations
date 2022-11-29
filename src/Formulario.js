@@ -11,7 +11,18 @@ const Formulario = () => {
           //validar el nombre del usuario
           if(!valores.nombre){
               errores.nombre = "El nombre es obligatorio test";
+          }else if(!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.nombre)){
+            errores.nombre = "el nombre no puede tener numeros";
           }
+
+          //validar el correo
+          if(!valores.correo){
+            errores.correo = "El correo es obligatorio test";
+        }else if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.correo)){
+          errores.correo = "el correo no puede tener numeros";
+        }
+
+
           return errores;
         }}
         onSubmit={(valores) => {
@@ -20,7 +31,6 @@ const Formulario = () => {
       >
         {({ handleSubmit, errors, values, handleChange, handleBlur }) => (
           <form className="formulario" onSubmit={handleSubmit}>
-            {console.log(errors)}
             <div>
               <label htmlFor="nombre">Nombre</label>
               <input
@@ -45,6 +55,7 @@ const Formulario = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
+               {errors.correo && <div className="error">{errors.correo}</div>}
             </div>
             <button type="submit">Enviar</button>
           </form>
