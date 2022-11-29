@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Formik } from "formik";
+import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 const Formulario = () => {
   const [formularioEnviado, setFormularioEnviado] = useState(false);
   return (
@@ -7,33 +7,76 @@ const Formulario = () => {
       <Formik
         initialValues={{ nombre: "", correo: "" }}
         validate={(valores) => {
-          let errores ={};
+          let errores = {};
 
           //validar el nombre del usuario
-          if(!valores.nombre){
-              errores.nombre = "El nombre es obligatorio test";
-          }else if(!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.nombre)){
+          if (!valores.nombre) {
+            errores.nombre = "El nombre es obligatorio test";
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.nombre)) {
             errores.nombre = "el nombre no puede tener numeros";
           }
 
           //validar el correo
-          if(!valores.correo){
+          if (!valores.correo) {
             errores.correo = "El correo es obligatorio test";
-        }else if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.correo)){
-          errores.correo = "el correo no es valido";
-        }
-
+          } else if (
+            !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
+              valores.correo
+            )
+          ) {
+            errores.correo = "el correo no es valido";
+          }
 
           return errores;
         }}
-        onSubmit={(valores, {resetForm}) => {
+        onSubmit={(valores, { resetForm }) => {
           resetForm();
           console.log(valores);
           setFormularioEnviado(true);
           setTimeout(() => setFormularioEnviado(false), 3000);
         }}
       >
-        {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+        {({
+          handleSubmit,
+          errors,
+          touched,
+          values,
+          handleChange,
+          handleBlur,
+        }) => (
+          <Form className="formulario">
+            <div>
+              <label htmlFor="nombre">Nombre</label>
+              <Field
+                type="text"
+                id="nombre"
+                name="nombre"
+                placeholder="John Doe"
+              />
+
+              {touched.nombre && errors.nombre && (
+                <div className="error">{errors.nombre}</div>
+              )}
+            </div>
+            <div>
+              <label htmlFor="nombre">Correo</label>
+              <Field
+                type="text"
+                id="correo"
+                name="correo"
+                placeholder="correo@correo.com"
+              />
+              {touched.correo && errors.correo && (
+                <div className="error">{errors.correo}</div>
+              )}
+            </div>
+            <button type="submit">Enviar</button>
+            {formularioEnviado && (
+              <p className="exito">Formulario enviado con exito</p>
+            )}
+          </Form>
+        )}
+        {/* {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
           <form className="formulario" onSubmit={handleSubmit}>
   
             <div>
@@ -66,7 +109,7 @@ const Formulario = () => {
             <button type="submit">Enviar</button>
             {formularioEnviado &&<p className="exito">Formulario enviado con exito</p>}
           </form>
-        )}
+        )} */}
       </Formik>
     </>
   );
