@@ -30,6 +30,7 @@ const Formulario = () => {
           resetForm();
           console.log(valores);
           setFormularioEnviado(true);
+          setTimeout(() => setFormularioEnviado(false), 3000);
         }}
       >
         {({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
