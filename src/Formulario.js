@@ -19,7 +19,7 @@ const Formulario = () => {
           if(!valores.correo){
             errores.correo = "El correo es obligatorio test";
         }else if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.correo)){
-          errores.correo = "el correo no puede tener numeros";
+          errores.correo = "el correo no es valido";
         }
 
 
