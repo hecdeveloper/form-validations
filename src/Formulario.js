@@ -7,9 +7,12 @@ const Formulario = () => {
         initialValues={{ nombre: "", correo: "" }}
         validate={(valores) => {
           let errores ={};
+
+          //validar el nombre del usuario
           if(!valores.nombre){
-          errores.nombre = "El nombre es obligatorio";
+              errores.nombre = "El nombre es obligatorio test";
           }
+          return errores;
         }}
         onSubmit={(valores) => {
           console.log(valores);
